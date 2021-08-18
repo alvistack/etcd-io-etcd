@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+
+SHELL := /bin/bash
+
+override_dh_auto_build:
+	mkdir -p bin
+	set -ex && \
+		export CGO_ENABLED=1 && \
+		pushd ./server && \
+			go build \
+				-mod vendor -buildmode pie -v \
+				-ldflags "-s -w" \
+				-buildmode pie \
+				-o ../bin/etcd . && \
+		popd && \
+		pushd ./etcdctl && \
+		go build \
+			-mod vendor -buildmode pie -v \
+			-ldflags "-s -w" \
+			-buildmode pie \
+			-o ../bin/etcdctl . && \
+		popd && \
+		pushd ./etcdutl && \
+		go build \
+			-mod vendor -buildmode pie -v \
+			-ldflags "-s -w" \
+			-buildmode pie \
+			-o ../bin/etcdutl .
+
+override_dh_auto_install:
+	install -Dpm755 -d debian/tmp/lib/systemd/system
+	install -Dpm755 -d debian/tmp/usr/bin
+	install -Dpm755 -d debian/tmp/usr/share/doc/etcd
+	install -Dpm644 -t debian/tmp/lib/systemd/system contrib/systemd/etcd.service
+	install -Dpm755 -t debian/tmp/usr/bin bin/etcd
+	install -Dpm755 -t debian/tmp/usr/bin bin/etcdctl
+	install -Dpm755 -t debian/tmp/usr/bin bin/etcdutl
+	install -Dpm644 -t debian/tmp/usr/share/doc/etcd etcd.conf.yml.sample
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+
+%:
+	dh $@
