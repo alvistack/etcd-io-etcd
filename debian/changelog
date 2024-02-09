@@ -1,0 +1,5 @@
+etcd (100:3.5.15-1) UNRELEASED; urgency=medium
+
+  * https://github.com/etcd-io/etcd/releases/tag/v3.5.15
+
+ -- Wong Hoi Sing Edison <hswong3i@pantarei-design.com>  Sat, 20 Jul 2024 11:02:13 +0800
