@@ -1,0 +1,5 @@
+etcd: copyright-without-copyright-notice
+etcd: initial-upload-closes-no-bugs
+etcd: no-manual-page
+etcd: statically-linked-binary
+etcd: zero-byte-file-in-doc-directory
