@@ -1,0 +1,6 @@
+etc/default/etcd
+lib/systemd/system/etcd.service
+usr/bin/etcd
+usr/bin/etcdctl
+usr/bin/etcdutl
+usr/share/doc/etcd/etcd.conf.yml.sample
